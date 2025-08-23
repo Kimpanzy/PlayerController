@@ -278,14 +278,13 @@ void APlayerPawn::CollisionFunction(const float DeltaTime)
 			Velocity = FVector::ZeroVector;
 			return;
 		}
-
 		FVector Origin, Extent;
 		GetActorBounds(true,Origin,Extent);
 
 		const FVector TraceStart = Origin;
 		const FVector TraceEnd = Origin + Movement.GetSafeNormal() *
 			(Movement.Size() + ColliderMargin) * 144.f * 10.f;
-
+		
 		FCollisionQueryParams QueryParams;
 		QueryParams.AddIgnoredActor(this);
 
@@ -299,6 +298,12 @@ void APlayerPawn::CollisionFunction(const float DeltaTime)
 			FCollisionShape::MakeCapsule(Extent),
 			QueryParams);
 
+		DrawDebugCapsule(GetWorld(), TraceStart, Extent.Z, Extent.X, FQuat::Identity, FColor::Blue, false, 0.2f);
+		if (bHit)
+		{
+			DrawDebugCapsule(GetWorld(), Hit.ImpactPoint, Extent.Z, Extent.X, FQuat::Identity, FColor::Red, false, 0.2f);
+		}
+		
 		if (bHit)
 		{
 			const float DistanceToColliderNeg = ColliderMargin / FVector::DotProduct(
@@ -360,10 +365,8 @@ void APlayerPawn::Depenetrate()
 {
 	FVector Origin, Extent;
 	GetActorBounds(true,Origin,Extent);
-
 	FCollisionQueryParams QueryParams;
 	QueryParams.AddIgnoredActor(this);
-
 	TArray<FOverlapResult> Overlaps;
 
 	if (GetWorld()->OverlapMultiByChannel(
@@ -378,9 +381,7 @@ void APlayerPawn::Depenetrate()
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Depenetrate Overlap: %s"), *Overlap.Component->GetName());
 			FMTDResult MTD;
-			if (Overlap.Component->ComputePenetration(
-				MTD,
-				FCollisionShape::MakeCapsule(Extent+ FVector(ColliderMargin)),
+			if (Overlap.Component->ComputePenetration(MTD,FCollisionShape::MakeCapsule(Extent+ FVector(ColliderMargin)),
 				Origin,
 				FQuat::Identity))
 			{
