@@ -44,6 +44,10 @@
 # Precompiled Assets
 SourceArt/**/*.png
 SourceArt/**/*.tga
+Content/AnimalVarietyPack/
+Content/FreeAnimationLibrary/
+Content/RamsterZ_FreeAnims_Volume1/
+Content/Weapon_Pack/
 
 # Binary Files
 Binaries/*
