@@ -298,11 +298,11 @@ void APlayerPawn::CollisionFunction(const float DeltaTime)
 			FCollisionShape::MakeCapsule(Extent),
 			QueryParams);
 
-		DrawDebugCapsule(GetWorld(), TraceStart, Extent.Z, Extent.X, FQuat::Identity, FColor::Blue, false, 0.2f);
+		/*DrawDebugCapsule(GetWorld(), TraceStart, Extent.Z, Extent.X, FQuat::Identity, FColor::Blue, false, 0.2f);
 		if (bHit)
 		{
 			DrawDebugCapsule(GetWorld(), Hit.ImpactPoint, Extent.Z, Extent.X, FQuat::Identity, FColor::Red, false, 0.2f);
-		}
+		}*/
 		
 		if (bHit)
 		{
@@ -441,7 +441,11 @@ void APlayerPawn::ApplyVelocity(float DeltaTime)
 	Velocity += CurrentInput.GetSafeNormal() * Acceleration * DeltaTime;
 	Velocity *= FMath::Pow(AirResistance, DeltaTime);
 	
-	FVector HorizontalVelocity = FVector(Velocity.X, Velocity.Y, 0.f).GetClampedToMaxSize(MovementSpeed);
+	FVector HorizontalVelocity = FVector(
+		Velocity.X,
+		Velocity.Y,
+		0.f).GetClampedToMaxSize(MovementSpeed);
+	
 	Velocity.X = HorizontalVelocity.X;
 	Velocity.Y = HorizontalVelocity.Y;
 }
@@ -920,13 +924,12 @@ void APlayerPawn::HeightTrace()
 			bIsInterpolatingToHang = true; 
 		}
 		
-		/*DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 10.f, 12, FColor::Red, false, 2.0f);
+		DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 10.f, 12, FColor::Red, false, 2.0f);
 	}
 	else
 	{
 		DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 2.0f);
 		DrawDebugSphere(GetWorld(), End, 10.f, 12, FColor::Green, false, 2.0f);
-	}*/
 	}
 }
 
@@ -956,13 +959,13 @@ void APlayerPawn::ForwardTrace()
 	{
 		WallNormal = HitResult.Normal;
 		WallLocation = HitResult.Location;
-		//DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 10.f, 12, FColor::Red, false, 2.0f);
+		DrawDebugSphere(GetWorld(), HitResult.ImpactPoint, 10.f, 12, FColor::Red, false, 2.0f);
 	}
-	/*else
+	else
 	{
 		DrawDebugLine(GetWorld(), Start, End, FColor::Green, false, 2.0f);
 		DrawDebugSphere(GetWorld(), End, 10.f, 12, FColor::Green, false, 2.0f);
-	}*/
+	}
 }
 void APlayerPawn::PlayClimbingMontage()
 {
