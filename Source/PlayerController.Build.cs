@@ -6,8 +6,6 @@ public class PlayerController : ModuleRules
 {
 	public PlayerController(ReadOnlyTargetRules Target) : base(Target)
 	{
-		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
-	
 		PublicDependencyModuleNames.AddRange(new string[]
 		{
 			"Core",
@@ -23,6 +21,7 @@ public class PlayerController : ModuleRules
 			"SlateCore",
 			"MotionWarping",
 			"AnimGraphRuntime",
+			"ProceduralMeshComponent",
 		});
 
 

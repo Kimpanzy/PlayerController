@@ -1,6 +1,5 @@
 
 #include "PlayerPawn.h"
-#include "PlayerPawn.h"
 
 #include "BrainComponent.h"
 #include "Consts.h"
@@ -22,7 +21,6 @@
 #include "Item/Item.h"
 #include "Item/Weapon/Weapon.h"
 #include "Animation/AnimMontage.h"
-#include "Components/SphereComponent.h"
 #include "MotionWarpingComponent.h"
 
 APlayerPawn::APlayerPawn() :
